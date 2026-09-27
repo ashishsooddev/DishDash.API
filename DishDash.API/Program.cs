@@ -1,3 +1,5 @@
+using DishDash.DAL.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace DishDash.API
 {
@@ -12,6 +14,11 @@ namespace DishDash.API
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
+            //connection string added 
+            builder.Services.AddDbContext<DishDashDbContext>(options =>
+                    options.UseSqlServer(
+            builder.Configuration.GetConnectionString("DishDashConnection")));
 
             var app = builder.Build();
 
