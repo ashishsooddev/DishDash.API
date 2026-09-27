@@ -4,9 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DishDash.Models.Entities
+namespace DishDash.Models.Entities;
+
+public class FoodItem
 {
-    internal class FoodItem
-    {
-    }
+    public int FoodItemId { get; set; }
+
+    public string Name { get; set; } = string.Empty;
+
+    public string Description { get; set; } = string.Empty;
+
+    public decimal Price { get; set; }
+
+    public bool IsAvailable { get; set; }
+
+    public int RestaurantId { get; set; }
+
+    public Restaurant Restaurant { get; set; } = null!;
+
 }
