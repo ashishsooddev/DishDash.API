@@ -1,3 +1,6 @@
 <Solution>
   <Project Path="DishDash.API/DishDash.API.csproj" />
+  <Project Path="DishDash.BLL/DishDash.BLL.csproj" />
+  <Project Path="DishDash.DAL/DishDash.DAL.csproj" />
+  <Project Path="DishDash.Models/DishDash.Models.csproj" />
 </Solution>
