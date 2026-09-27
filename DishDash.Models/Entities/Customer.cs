@@ -17,5 +17,6 @@ public class Customer
     public string Email { get; set; } = string.Empty;
 
     public string PhoneNumber { get; set; } = string.Empty;
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
 
 }

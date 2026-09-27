@@ -21,5 +21,6 @@ public class FoodItem
     public int RestaurantId { get; set; }
 
     public Restaurant Restaurant { get; set; } = null!;
+    public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
 }

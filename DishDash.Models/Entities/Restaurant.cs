@@ -15,5 +15,8 @@ public class Restaurant
     public string Address { get; set; } = string.Empty;
 
     public string PhoneNumber { get; set; } = string.Empty;
+    public ICollection<FoodItem> FoodItems { get; set; } = new List<FoodItem>();
+
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
 
 }
