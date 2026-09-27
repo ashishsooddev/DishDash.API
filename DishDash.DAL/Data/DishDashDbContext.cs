@@ -31,31 +31,38 @@ public class DishDashDbContext : DbContext
         modelBuilder.Entity<Customer>()
             .HasMany(c => c.Orders)
             .WithOne(o => o.Customer)
-            .HasForeignKey(o => o.CustomerId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .HasForeignKey(o => o.CustomerId);
 
         modelBuilder.Entity<Restaurant>()
             .HasMany(r => r.FoodItems)
             .WithOne(f => f.Restaurant)
-            .HasForeignKey(f => f.RestaurantId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .HasForeignKey(f => f.RestaurantId);
 
         modelBuilder.Entity<Restaurant>()
             .HasMany(r => r.Orders)
             .WithOne(o => o.Restaurant)
-            .HasForeignKey(o => o.RestaurantId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .HasForeignKey(o => o.RestaurantId);
 
         modelBuilder.Entity<Order>()
             .HasMany(o => o.OrderItems)
             .WithOne(oi => oi.Order)
-            .HasForeignKey(oi => oi.OrderId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .HasForeignKey(oi => oi.OrderId);
 
         modelBuilder.Entity<FoodItem>()
             .HasMany(f => f.OrderItems)
             .WithOne(oi => oi.FoodItem)
-            .HasForeignKey(oi => oi.FoodItemId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .HasForeignKey(oi => oi.FoodItemId);
+
+        modelBuilder.Entity<FoodItem>()
+            .Property(f => f.Price)
+            .HasPrecision(10, 2);
+
+        modelBuilder.Entity<Order>()
+            .Property(o => o.TotalAmount)
+            .HasPrecision(10, 2);
+
+        modelBuilder.Entity<OrderItem>()
+            .Property(oi => oi.UnitPrice)
+            .HasPrecision(10, 2);
     }
 }
