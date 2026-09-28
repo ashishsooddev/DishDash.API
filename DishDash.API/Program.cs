@@ -10,33 +10,34 @@ namespace DishDash.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
 
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+            // Add OpenAPI support
             builder.Services.AddOpenApi();
 
-            //connection string added 
+            // Add database connection -- my connection string added.
             builder.Services.AddDbContext<DishDashDbContext>(options =>
-                    options.UseSqlServer(
-            builder.Configuration.GetConnectionString("DishDashConnection")));
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DishDashConnection")));
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                // Generate the OpenAPI document
+                app.MapOpenApi();
+
+                // Display the Swagger UI
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/openapi/v1.json", "DishDash API v1");
+                    options.RoutePrefix = "swagger";
+                });
             }
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
