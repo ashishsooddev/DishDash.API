@@ -31,27 +31,32 @@ public class DishDashDbContext : DbContext
         modelBuilder.Entity<Customer>()
             .HasMany(c => c.Orders)
             .WithOne(o => o.Customer)
-            .HasForeignKey(o => o.CustomerId);
+            .HasForeignKey(o => o.CustomerId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Restaurant>()
             .HasMany(r => r.FoodItems)
             .WithOne(f => f.Restaurant)
-            .HasForeignKey(f => f.RestaurantId);
+            .HasForeignKey(f => f.RestaurantId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Restaurant>()
             .HasMany(r => r.Orders)
             .WithOne(o => o.Restaurant)
-            .HasForeignKey(o => o.RestaurantId);
+            .HasForeignKey(o => o.RestaurantId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Order>()
             .HasMany(o => o.OrderItems)
             .WithOne(oi => oi.Order)
-            .HasForeignKey(oi => oi.OrderId);
+            .HasForeignKey(oi => oi.OrderId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<FoodItem>()
             .HasMany(f => f.OrderItems)
             .WithOne(oi => oi.FoodItem)
-            .HasForeignKey(oi => oi.FoodItemId);
+            .HasForeignKey(oi => oi.FoodItemId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<FoodItem>()
             .Property(f => f.Price)
