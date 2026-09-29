@@ -87,5 +87,50 @@ public class DishDashDbContext : DbContext
                 Email = "sarah.johnson@example.com",
                 PhoneNumber = "204-555-1002"
             });
+
+        modelBuilder.Entity<Restaurant>().HasData(
+            new Restaurant
+            {
+                RestaurantId = 1,
+                Name = "Tasty Bites",
+                Address = "123 Main Street",
+                PhoneNumber = "204-555-2001"
+            },
+            new Restaurant
+            {
+                RestaurantId = 2,
+                Name = "Pizza House",
+                Address = "456 Portage Avenue",
+                PhoneNumber = "204-555-2002"
+            });
+
+        modelBuilder.Entity<FoodItem>().HasData(
+            new FoodItem
+            {
+                FoodItemId = 1,
+                Name = "Chicken Burger",
+                Description = "Grilled chicken burger with lettuce and sauce",
+                Price = 12.99m,
+                IsAvailable = true,
+                RestaurantId = 1
+            },
+            new FoodItem
+            {
+                FoodItemId = 2,
+                Name = "French Fries",
+                Description = "Crispy golden French fries",
+                Price = 5.99m,
+                IsAvailable = true,
+                RestaurantId = 1
+            },
+            new FoodItem
+            {
+                FoodItemId = 3,
+                Name = "Pepperoni Pizza",
+                Description = "Large pizza with pepperoni and cheese",
+                Price = 18.99m,
+                IsAvailable = true,
+                RestaurantId = 2
+            });
     }
 }
