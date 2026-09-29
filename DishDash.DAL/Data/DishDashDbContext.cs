@@ -69,5 +69,23 @@ public class DishDashDbContext : DbContext
         modelBuilder.Entity<OrderItem>()
             .Property(oi => oi.UnitPrice)
             .HasPrecision(10, 2);
+
+        modelBuilder.Entity<Customer>().HasData(
+            new Customer
+            {
+                CustomerId = 1,
+                FirstName = "John",
+                LastName = "Smith",
+                Email = "john.smith@example.com",
+                PhoneNumber = "204-555-1001"
+            },
+            new Customer
+            {
+                CustomerId = 2,
+                FirstName = "Sarah",
+                LastName = "Johnson",
+                Email = "sarah.johnson@example.com",
+                PhoneNumber = "204-555-1002"
+            });
     }
 }

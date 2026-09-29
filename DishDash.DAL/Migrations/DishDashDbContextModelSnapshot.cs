@@ -178,7 +178,7 @@ namespace DishDash.DAL.Migrations
                     b.HasOne("DishDash.Models.Entities.Restaurant", "Restaurant")
                         .WithMany("FoodItems")
                         .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Restaurant");
@@ -189,13 +189,13 @@ namespace DishDash.DAL.Migrations
                     b.HasOne("DishDash.Models.Entities.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DishDash.Models.Entities.Restaurant", "Restaurant")
                         .WithMany("Orders")
                         .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -208,13 +208,13 @@ namespace DishDash.DAL.Migrations
                     b.HasOne("DishDash.Models.Entities.FoodItem", "FoodItem")
                         .WithMany("OrderItems")
                         .HasForeignKey("FoodItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DishDash.Models.Entities.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("FoodItem");
