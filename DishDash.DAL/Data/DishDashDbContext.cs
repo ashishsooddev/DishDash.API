@@ -132,5 +132,50 @@ public class DishDashDbContext : DbContext
                 IsAvailable = true,
                 RestaurantId = 2
             });
+
+        modelBuilder.Entity<Order>().HasData(
+            new Order
+            {
+                OrderId = 1,
+                OrderDate = new DateTime(2026, 9, 29),
+                Status = "Pending",
+                TotalAmount = 18.98m,
+                CustomerId = 1,
+                RestaurantId = 1
+            },
+            new Order
+            {
+                OrderId = 2,
+                OrderDate = new DateTime(2026, 9, 29),
+                Status = "Completed",
+                TotalAmount = 18.99m,
+                CustomerId = 2,
+                RestaurantId = 2
+            });
+        modelBuilder.Entity<OrderItem>().HasData(
+            new OrderItem
+            {
+                OrderItemId = 1,
+                Quantity = 1,
+                UnitPrice = 12.99m,
+                OrderId = 1,
+                FoodItemId = 1
+            },
+            new OrderItem
+            {
+                OrderItemId = 2,
+                Quantity = 1,
+                UnitPrice = 5.99m,
+                OrderId = 1,
+                FoodItemId = 2
+            },
+            new OrderItem
+            {
+                OrderItemId = 3,
+                Quantity = 1,
+                UnitPrice = 18.99m,
+                OrderId = 2,
+                FoodItemId = 3
+            });
     }
 }
