@@ -62,4 +62,16 @@ public class RestaurantsController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await _restaurantService.DeleteRestaurantAsync(id);
+
+        if (!deleted)
+        {
+            return NotFound();
+        }
+        return NoContent();
+    }
 }
