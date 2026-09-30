@@ -48,4 +48,32 @@ public class CustomersController : ControllerBase
             customer);
     }
 
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(
+    int id,
+    CustomerCreateDto customerDto)
+    {
+        var updated = await _customerService.UpdateCustomerAsync(
+            id,
+            customerDto);
+
+        if (!updated)
+        {
+            return NotFound();
+        }
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await _customerService.DeleteCustomerAsync(id);
+
+        if (!deleted)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
 }
