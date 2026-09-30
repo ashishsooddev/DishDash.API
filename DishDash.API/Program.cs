@@ -12,6 +12,8 @@ namespace DishDash.API
             // Add services to the container.
             builder.Services.AddControllers();
 
+            //Services registered 
+
             // Add OpenAPI support
             builder.Services.AddOpenApi();
 
