@@ -13,6 +13,8 @@ public interface IOrderService
     Task<OrderReadDto?> GetOrderByIdAsync(int id);
 
     Task<OrderReadDto?> CreateOrderAsync(OrderCreateDto orderDto);
+    // task added for complex order query to 
+    Task<List<OrderReadDto>> SearchOrdersAsync(string? status, decimal? minimumAmount);
 
     Task<bool> UpdateOrderStatusAsync(int id, string status);
 
