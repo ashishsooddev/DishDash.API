@@ -35,6 +35,17 @@ public class OrdersController : ControllerBase
 
         return Ok(order);
     }
+    // Get addded for search the orders
+    [HttpGet("search")]
+    public async Task<ActionResult<List<OrderReadDto>>> Search(
+    string? status,
+    decimal? minimumAmount)
+    {
+        var orders = await _orderService
+            .SearchOrdersAsync(status, minimumAmount);
+
+        return Ok(orders);
+    }
 
     [HttpPost]
     public async Task<ActionResult<OrderReadDto>> Create(
