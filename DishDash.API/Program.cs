@@ -13,6 +13,8 @@ namespace DishDash.API
 
             // Add services to the container.
             builder.Services.AddControllers();
+            // added this for problem details
+            builder.Services.AddProblemDetails();
 
             //Services registered below this---> 
             builder.Services.AddScoped<ICustomerService, CustomerService>();
@@ -29,6 +31,8 @@ namespace DishDash.API
                     builder.Configuration.GetConnectionString("DishDashConnection")));
 
             var app = builder.Build();
+            // Used for exception handling to throw an error if user asking for which is not there...
+            app.UseExceptionHandler();
 
             if (app.Environment.IsDevelopment())
             {
