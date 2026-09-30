@@ -18,7 +18,9 @@ public class CustomerService : ICustomerService
         _context = context;
     }
 
-    public async Task<List<CustomerReadDto>> GetAllCustomersAsync()
+    public async Task<List<CustomerReadDto>> GetAllCustomersAsync(
+        int pageNumber,
+        int pageSize)
     {
         return await _context.Customers
             .Select(c => new CustomerReadDto
@@ -29,6 +31,8 @@ public class CustomerService : ICustomerService
                 Email = c.Email,
                 PhoneNumber = c.PhoneNumber
             })
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
     }
 

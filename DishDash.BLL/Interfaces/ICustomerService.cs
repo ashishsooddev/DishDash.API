@@ -8,7 +8,7 @@ using DishDash.Models.DTOs;
 namespace DishDash.BLL.Interfaces;
 public interface ICustomerService
 {
-    Task<List<CustomerReadDto>> GetAllCustomersAsync();
+    Task<List<CustomerReadDto>> GetAllCustomersAsync(int pageNumber, int pageSize);
 
     Task<CustomerReadDto?> GetCustomerByIdAsync(int id);
 
