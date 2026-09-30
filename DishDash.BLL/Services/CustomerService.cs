@@ -13,7 +13,6 @@ namespace DishDash.BLL.Services;
 public class CustomerService : ICustomerService
 {
     private readonly DishDashDbContext _context;
-
     public CustomerService(DishDashDbContext context)
     {
         _context = context;
@@ -70,5 +69,37 @@ public class CustomerService : ICustomerService
             PhoneNumber = customer.PhoneNumber
         };
     }
+    public async Task<bool> UpdateCustomerAsync(int id, CustomerCreateDto customerDto)
+    {
+        var customer = await _context.Customers.FindAsync(id);
 
+        if (customer == null)
+        {
+            return false;
+        }
+
+        customer.FirstName = customerDto.FirstName;
+        customer.LastName = customerDto.LastName;
+        customer.Email = customerDto.Email;
+        customer.PhoneNumber = customerDto.PhoneNumber;
+
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> DeleteCustomerAsync(int id)
+    {
+        var customer = await _context.Customers.FindAsync(id);
+
+        if (customer == null)
+        {
+            return false;
+        }
+
+        _context.Customers.Remove(customer);
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }
