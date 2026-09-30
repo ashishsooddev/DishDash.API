@@ -20,4 +20,8 @@
     <ProjectReference Include="..\DishDash.Models\DishDash.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
