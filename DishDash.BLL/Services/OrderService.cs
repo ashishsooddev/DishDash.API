@@ -77,6 +77,48 @@ public class OrderService : IOrderService
             })
             .FirstOrDefaultAsync();
     }
+    // Another query added to search orderss
+    public async Task<List<OrderReadDto>> SearchOrdersAsync(string? status, decimal? minimumAmount)
+    {
+        var query = _context.Orders
+            .Include(o => o.Customer)
+            .Include(o => o.Restaurant)
+            .Include(o => o.OrderItems)
+            .ThenInclude(oi => oi.FoodItem)
+            .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(status))
+        {
+            query = query.Where(o => o.Status == status);
+        }
+
+        if (minimumAmount.HasValue)
+        {
+            query = query.Where(o => o.TotalAmount >= minimumAmount.Value);
+        }
+
+        return await query
+            .Select(o => new OrderReadDto
+            {
+                OrderId = o.OrderId,
+                OrderDate = o.OrderDate,
+                Status = o.Status,
+                TotalAmount = o.TotalAmount,
+                CustomerId = o.CustomerId,
+                CustomerName = o.Customer.FirstName + " " + o.Customer.LastName,
+                RestaurantId = o.RestaurantId,
+                RestaurantName = o.Restaurant.Name,
+                OrderItems = o.OrderItems.Select(oi => new OrderItemReadDto
+                {
+                    OrderItemId = oi.OrderItemId,
+                    Quantity = oi.Quantity,
+                    UnitPrice = oi.UnitPrice,
+                    FoodItemId = oi.FoodItemId,
+                    FoodItemName = oi.FoodItem.Name
+                }).ToList()
+            })
+            .ToListAsync();
+    }
     public async Task<OrderReadDto?> CreateOrderAsync(OrderCreateDto orderDto)
     {
         var customerExists = await _context.Customers
