@@ -154,4 +154,36 @@ public class OrderService : IOrderService
         return await GetOrderByIdAsync(order.OrderId);
     }
 
+    public async Task<bool> UpdateOrderStatusAsync(int id, string status)
+    {
+        var order = await _context.Orders.FindAsync(id);
+
+        if (order == null)
+        {
+            return false;
+        }
+        order.Status = status;
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> DeleteOrderAsync(int id)
+    {
+        var order = await _context.Orders
+            .Include(o => o.OrderItems)
+            .FirstOrDefaultAsync(o => o.OrderId == id);
+
+        if (order == null)
+        {
+            return false;
+        }
+
+        _context.OrderItems.RemoveRange(order.OrderItems);
+        _context.Orders.Remove(order);
+
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }

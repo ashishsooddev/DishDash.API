@@ -1,3 +1,5 @@
+using DishDash.BLL.Interfaces;
+using DishDash.BLL.Services;
 using DishDash.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +14,11 @@ namespace DishDash.API
             // Add services to the container.
             builder.Services.AddControllers();
 
-            //Services registered 
+            //Services registered below this---> 
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
+            builder.Services.AddScoped<IRestaurantService, RestaurantService>();
+            builder.Services.AddScoped<IFoodItemService, FoodItemService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
 
             // Add OpenAPI support
             builder.Services.AddOpenApi();
