@@ -16,9 +16,17 @@ public class CustomersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<CustomerReadDto>>> GetAll()
+    public async Task<ActionResult<List<CustomerReadDto>>> GetAll(
+        int pageNumber = 1,
+        int pageSize = 10) /// with pagination for the get all customers
     {
-        var customers = await _customerService.GetAllCustomersAsync();
+        if (pageNumber < 1 || pageSize < 1)
+        {
+            return BadRequest("Page number and page size must be greater than 0.");
+        }
+
+        var customers = await _customerService
+            .GetAllCustomersAsync(pageNumber, pageSize);
 
         return Ok(customers);
     }
